@@ -9,6 +9,7 @@ export const userRegistration = async (req: Request, res: Response) => {
 
   if (!errors.isEmpty()) {
     return res.status(400).json({
+      status: 'error',
       message: "Invalid data",
       errors: errors.array(),
     });
@@ -28,6 +29,7 @@ export const userRegistration = async (req: Request, res: Response) => {
 
     if (userExists) {
       return res.status(400).json({
+        status: 'error',
         message: "User already exists",
       });
     }
@@ -54,12 +56,14 @@ export const userRegistration = async (req: Request, res: Response) => {
     });
 
     return res.status(201).json({
+      status: 'success',
       message: "User created",
     });
-  } catch (error: any) {
+  } catch (error) {
     console.log(error);
 
-    res.status(500).send({
+    res.status(500).json({
+      status: 'error',
       message: "Something went wrong"
     })
   }
