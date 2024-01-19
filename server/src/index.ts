@@ -3,6 +3,8 @@ import cors from 'cors';
 import "dotenv/config";
 import mongoose from 'mongoose';
 
+import userRoutes from './routes/users';
+
 mongoose.connect(process.env.MONGODB_URI as string);
 
 const app = express();
@@ -18,6 +20,8 @@ app.get('/api/test', async (req: Request, res: Response) => {
     message: "Simple API test",
   })
 });
+
+app.use('/api/users', userRoutes);
 
 app.listen(8000, () => {
   console.log(`Server is listening on port 8000`);
