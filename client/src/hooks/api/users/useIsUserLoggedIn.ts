@@ -1,22 +1,22 @@
 import { create } from 'zustand';
 import axios from 'axios';
-import { useQuery } from '@tanstack/react-query';
 
 interface IsUserLoggedInState {
-  isUserLoggedIn: () => boolean;
+  userLoggedIn: boolean;
+  setUserLoggedIn: (userLoggedIn: boolean) => void;
+  checkIfUserIsLoggedIn: () => void;
 }
 
-export const useIsUserLoggedIn = create<IsUserLoggedInState>(() => ({
-  isUserLoggedIn: () => {
-    const isLoggedIn = useQuery({
-      queryKey: ['isUserLoggedIn'],
-      queryFn: async () => {
-         await axios.get(`${process.env.NEXT_PUBLIC_API_SERVER_URL}auth/validate-token`, {
-          withCredentials: true,
-        });
-      },
+export const useIsUserLoggedIn = create<IsUserLoggedInState>((set) => ({
+  userLoggedIn: false,
+  setUserLoggedIn: (userLoggedIn: boolean) => set({ userLoggedIn }),
+  checkIfUserIsLoggedIn: async () => {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_SERVER_URL}auth/validate-token`, {
+      withCredentials: true,
     });
 
-    return isLoggedIn.isSuccess;
+    set({
+      userLoggedIn: response.status === 200,
+    });
   },
 }));

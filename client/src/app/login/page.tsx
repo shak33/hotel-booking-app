@@ -3,6 +3,7 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import Link from 'next/link';
 
 import { useLogInUser } from '@/hooks/api/users/useLogInUser';
 
@@ -45,7 +46,10 @@ export default function SignInPage() {
         <input className="border rounded w-full py-1 px-2 font-normal" {...register('password')} />
         {errors.password ? <span className="text-red-500">{errors.password.message}</span> : null}
       </label>
-      <div className="flex justify-between">
+      <div className="flex items-center justify-between">
+        <span className="text-sm">
+          Not registered? <Link className="underline" href="/register">Create an account here</Link>
+        </span>
         <button className="bg-blue-600 text-white p-2 font-bold hover:bg-blue-500 text-xl" type="submit">
           Log In
         </button>

@@ -3,6 +3,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
+import Link from 'next/link';
 
 import { useRegisterUser } from '@/hooks/api/users/useRegisterUser';
 
@@ -68,7 +69,10 @@ export default function RegisterPage() {
         <input className="border rounded w-full py-1 px-2 font-normal" {...register('repeatPassword')} />
         {errors.repeatPassword ? <span className="text-red-500">{errors.repeatPassword.message}</span> : null}
       </label>
-      <div className="flex justify-between">
+      <div className="flex items-center justify-between">
+        <span className="text-sm">
+          Have an account already? <Link className="underline" href="/register">Click here to log in</Link>
+        </span>
         <button className="bg-blue-600 text-white p-2 font-bold hover:bg-blue-500 text-xl" type="submit">
           Create Account
         </button>

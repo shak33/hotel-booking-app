@@ -1,15 +1,18 @@
 import axios from 'axios';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { UseFormReturn } from 'react-hook-form';
 import * as z from 'zod';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import { formSchema } from '@/app/register/page';
+
+import { useIsUserLoggedIn } from "@/hooks/api/users/useIsUserLoggedIn";
 
 type FormData = z.infer<typeof formSchema>;
 
 export const useRegisterUser = (form: UseFormReturn<FormData>) => {
-  const queryclient = useQueryClient();
+  const router = useRouter();
+  const { checkIfUserIsLoggedIn } = useIsUserLoggedIn();
 
   const createMutation = useMutation({
     mutationFn: async (data: z.infer<typeof formSchema>) => {
@@ -18,11 +21,9 @@ export const useRegisterUser = (form: UseFormReturn<FormData>) => {
       });
     },
     onSuccess: () => {
+      checkIfUserIsLoggedIn();
+      router.push('/');
       form.reset();
-      queryclient.invalidateQueries({
-        queryKey: ['user'],
-      });
-      redirect('/');
     }
   });
 
