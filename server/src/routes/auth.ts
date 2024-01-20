@@ -1,5 +1,7 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import { check } from 'express-validator';
+
+import { verifyToken } from '../middleware/auth';
 
 import { userLogin } from '../controllers/auth';
 
@@ -13,5 +15,18 @@ router.post(
   ],
   userLogin,
 );
+
+router.get(
+  '/validate-token',
+  verifyToken,
+  (req: Request, res: Response) => {
+    res.status(200).json({
+      status: 'success',
+      data: {
+        userId: req.userId,
+      }
+    })
+  }
+)
 
 export default router;
