@@ -1,9 +1,8 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import cors from 'cors';
 import "dotenv/config";
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
-import path from 'path';
 
 import userRoutes from './routes/users';
 import authRoutes from './routes/auth';
@@ -21,14 +20,6 @@ app.use(cors({
   origin: process.env.CLIENT_URL,
   credentials: true,
 }));
-
-app.get('/api/test', async (req: Request, res: Response) => {
-  res.json({
-    message: "Simple API test",
-  })
-});
-
-app.use(express.static(path.join(__dirname, '../../client/build')));
 
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
