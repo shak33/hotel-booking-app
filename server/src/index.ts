@@ -24,6 +24,13 @@ app.use(cors({
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
 
+app.get('/', (req, res) => {
+  res.json({
+    status: 'success',
+    message: 'API is working',
+  });
+});
+
 app.listen(8000, () => {
   console.log(`Server is listening on port 8000`);
 });
