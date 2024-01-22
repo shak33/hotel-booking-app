@@ -1,30 +1,28 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
-import Link from 'next/link';
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import Link from "next/link";
 
-import { useRegisterUser } from '@/hooks/api/users/useRegisterUser';
+import { useRegisterUser } from "@/hooks/api/users/useRegisterUser";
 
-import { formSchema } from '@/forms/register';
+import { formSchema } from "@/forms/schemas/register";
 
 export default function RegisterPage() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      repeatPassword: '',
-    }
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      repeatPassword: "",
+    },
   });
   const {
     handleSubmit,
-    formState: {
-      errors,
-    },
+    formState: { errors },
     register,
   } = form;
   const registerUser = useRegisterUser(form);
@@ -39,38 +37,69 @@ export default function RegisterPage() {
       <div className="flex flex-col md:flex-row gap-5">
         <label className="text-gray-700 text-sm font-bold flex-1">
           First Name
-          <input className="border rounded w-full py-1 px-2 font-normal" {...register('firstName')} />
-          {errors.firstName ? <span className="text-red-500">{errors.firstName.message}</span> : null}
+          <input
+            className="border rounded w-full py-1 px-2 font-normal"
+            {...register("firstName")}
+          />
+          {errors.firstName ? (
+            <span className="text-red-500">{errors.firstName.message}</span>
+          ) : null}
         </label>
         <label className="text-gray-700 text-sm font-bold flex-1">
           Last Name
-          <input className="border rounded w-full py-1 px-2 font-normal" {...register('lastName')} />
-          {errors.lastName ? <span className="text-red-500">{errors.lastName.message}</span> : null}
+          <input
+            className="border rounded w-full py-1 px-2 font-normal"
+            {...register("lastName")}
+          />
+          {errors.lastName ? (
+            <span className="text-red-500">{errors.lastName.message}</span>
+          ) : null}
         </label>
       </div>
       <label className="text-gray-700 text-sm font-bold flex-1">
         Email
-        <input className="border rounded w-full py-1 px-2 font-normal" {...register('email')} />
-        {errors.email ? <span className="text-red-500">{errors.email.message}</span> : null}
+        <input
+          className="border rounded w-full py-1 px-2 font-normal"
+          {...register("email")}
+        />
+        {errors.email ? (
+          <span className="text-red-500">{errors.email.message}</span>
+        ) : null}
       </label>
       <label className="text-gray-700 text-sm font-bold flex-1">
         Password
-        <input className="border rounded w-full py-1 px-2 font-normal" {...register('password')} />
-        {errors.password ? <span className="text-red-500">{errors.password.message}</span> : null}
+        <input
+          className="border rounded w-full py-1 px-2 font-normal"
+          {...register("password")}
+        />
+        {errors.password ? (
+          <span className="text-red-500">{errors.password.message}</span>
+        ) : null}
       </label>
       <label className="text-gray-700 text-sm font-bold flex-1">
         Repeat Password
-        <input className="border rounded w-full py-1 px-2 font-normal" {...register('repeatPassword')} />
-        {errors.repeatPassword ? <span className="text-red-500">{errors.repeatPassword.message}</span> : null}
+        <input
+          className="border rounded w-full py-1 px-2 font-normal"
+          {...register("repeatPassword")}
+        />
+        {errors.repeatPassword ? (
+          <span className="text-red-500">{errors.repeatPassword.message}</span>
+        ) : null}
       </label>
       <div className="flex items-center justify-between">
         <span className="text-sm">
-          Have an account already? <Link className="underline" href="/register">Click here to log in</Link>
+          Have an account already?{" "}
+          <Link className="underline" href="/register">
+            Click here to log in
+          </Link>
         </span>
-        <button className="bg-blue-600 text-white p-2 font-bold hover:bg-blue-500 text-xl" type="submit">
+        <button
+          className="bg-blue-600 text-white p-2 font-bold hover:bg-blue-500 text-xl"
+          type="submit"
+        >
           Create Account
         </button>
       </div>
     </form>
-  )
+  );
 }

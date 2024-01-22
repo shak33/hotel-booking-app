@@ -1,10 +1,10 @@
-import axios from 'axios';
-import { useMutation } from '@tanstack/react-query';
-import { UseFormReturn } from 'react-hook-form';
-import * as z from 'zod';
-import { useRouter } from 'next/navigation';
+import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
+import { UseFormReturn } from "react-hook-form";
+import * as z from "zod";
+import { useRouter } from "next/navigation";
 
-import { formSchema } from '@/forms/register';
+import { formSchema } from "@/forms/schemas/register";
 
 import { useIsUserLoggedIn } from "@/hooks/api/users/useIsUserLoggedIn";
 
@@ -16,15 +16,19 @@ export const useRegisterUser = (form: UseFormReturn<FormData>) => {
 
   const createMutation = useMutation({
     mutationFn: async (data: z.infer<typeof formSchema>) => {
-      await axios.post(`${process.env.NEXT_PUBLIC_API_SERVER_URL}users/register`, data, {
-        withCredentials: true,
-      });
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_API_SERVER_URL}users/register`,
+        data,
+        {
+          withCredentials: true,
+        },
+      );
     },
     onSuccess: () => {
       checkIfUserIsLoggedIn();
-      router.push('/');
+      router.push("/");
       form.reset();
-    }
+    },
   });
 
   return createMutation;
