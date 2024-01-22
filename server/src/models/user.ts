@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 import bcrypt from 'bcrypt';
 
-export type UserType = {
+export interface UserInterface {
   _id: string;
   email: string;
   password: string;
@@ -9,7 +9,7 @@ export type UserType = {
   lastName: string;
 }
 
-const userSchema = new Schema<UserType>({
+const userSchema = new Schema<UserInterface>({
   email: {
     type: String,
     required: true,
@@ -37,4 +37,4 @@ userSchema.pre("save", async function(next) {
   }
 });
 
-export default model<UserType>('User', userSchema);
+export default model<UserInterface>('User', userSchema);
