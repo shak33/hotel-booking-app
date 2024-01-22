@@ -6,13 +6,13 @@ import { useIsUserLoggedIn } from '@/hooks/api/users/useIsUserLoggedIn';
 import { useLogOutUser } from '@/hooks/api/users/useLogOutUser';
 import { useEffect } from 'react';
 
-export const Header = () => {
-  const { userLoggedIn, checkIfUserIsLoggedIn } = useIsUserLoggedIn();
+export const Header = ({
+  loggedIn,
+}: {
+  loggedIn: boolean
+}) => {
+  const { userLoggedIn } = useIsUserLoggedIn();
   const logOutUser = useLogOutUser();
-
-  useEffect(() => {
-    checkIfUserIsLoggedIn();
-  }, []);
 
   return (
     <div className="bg-blue-800 py-6">
@@ -23,7 +23,7 @@ export const Header = () => {
           </Link>
         </span>
         <span className="flex space-x-2">
-          {userLoggedIn ? (
+          {userLoggedIn || loggedIn ? (
             <>
               <Link className="flex items-center text-white px-3 font-bold hover:bg-blue-600" href="/my-bookings">
                 My Bookings

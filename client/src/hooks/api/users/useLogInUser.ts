@@ -4,7 +4,7 @@ import { UseFormReturn } from "react-hook-form";
 import * as z from "zod";
 import { useRouter } from "next/navigation";
 
-import { formSchema } from "@/forms/login";
+import { formSchema } from "@/forms/schemas/login";
 
 import { useIsUserLoggedIn } from "@/hooks/api/users/useIsUserLoggedIn";
 
