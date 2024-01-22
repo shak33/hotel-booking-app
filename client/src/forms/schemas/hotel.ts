@@ -11,5 +11,5 @@ export const formSchema = z.object({
   facilities: z.array(z.string()).min(1, { message: 'Must have at least 1 facility' }),
   pricePerNight: z.number().min(1, { message: 'Price per night must be at least 1' }),
   starRating: z.number().min(1, { message: 'Star rating must be at least 1' }),
-  imageFiles: z.instanceof(FileList)
+  imageFiles: z.any() as z.ZodType<FileList>,
 });

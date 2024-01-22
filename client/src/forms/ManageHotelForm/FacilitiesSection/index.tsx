@@ -1,4 +1,4 @@
-import { DeepMap, FieldError, UseFormRegister } from "react-hook-form";
+import { DeepMap, FieldError, FieldValues, UseFormRegister } from "react-hook-form";
 import * as z from "zod";
 
 import { formSchema } from "@/forms/schemas/hotel";
@@ -16,7 +16,7 @@ const hotelFacilities = [
 
 interface FacilitiesSectionProps {
   register: UseFormRegister<z.infer<typeof formSchema>>;
-  errors: DeepMap<z.infer<typeof formSchema>, FieldError>;
+  errors: DeepMap<FieldValues, FieldError>;
 }
 
 export const FacilitiesSection = ({
