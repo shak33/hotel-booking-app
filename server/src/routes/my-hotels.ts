@@ -31,7 +31,7 @@ router.post(
     check('adultCount').notEmpty().isNumeric().withMessage('Adult count is required'),
     check('childrenCount').notEmpty().isNumeric().withMessage('Children count is required'),
   ],
-  upload.array('imageFiles', 6),
+  upload.array('imageFiles[]', 6),
   createHotel
 );
 

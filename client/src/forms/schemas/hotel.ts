@@ -11,21 +11,5 @@ export const formSchema = z.object({
   facilities: z.array(z.string()).min(1, { message: 'Must have at least 1 facility' }),
   pricePerNight: z.number().min(1, { message: 'Price per night must be at least 1' }),
   starRating: z.number().min(1, { message: 'Star rating must be at least 1' }),
-  imageFiles: z
-  .array(
-    z.object({
-      size: z.number(),
-      type: z.string(),
-    })
-  )
-  .min(1, { message: 'Must have at least 1 image' })
-  .max(5, { message: 'Must have at most 5 images' })
-  .refine(
-    (files) => files?.[0]?.size <= 1024 * 1024 * 5,
-    `Max image size is 5MB.`
-  )
-  .refine(
-    (files) => 'image/'.includes(files?.[0]?.type),
-    'Only .jpg, .jpeg, .png and .webp formats are supported.'
-  ),
+  imageFiles: z.instanceof(FileList)
 });

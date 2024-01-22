@@ -52,7 +52,7 @@ const hotelSchema = new Schema<HotelInterface>({
     required: true,
   },
   facilities: {
-    type: [String], 
+    type: [String],
     required: true,
   },
   pricePerNight: {

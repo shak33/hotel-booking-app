@@ -20,7 +20,9 @@ export const GuestsSection = ({
             type="number"
             className="border rounded w-full py-2 px-3 font-normal"
             min="1"
-            {...register("adultCount")}
+            {...register("adultCount", {
+              valueAsNumber: true,
+            })}
           />
         </label>
         <label className="text-gray-700 text-sm font-semibold">
@@ -29,7 +31,9 @@ export const GuestsSection = ({
             type="number"
             className="border rounded w-full py-2 px-3 font-normal"
             min="0"
-            {...register("childrenCount")}
+            {...register("childrenCount", {
+              valueAsNumber: true,
+            })}
           />
         </label>
       </div>

@@ -27,7 +27,6 @@ export const ManageHotelForm = () => {
       facilities: [],
       pricePerNight: 0,
       starRating: 1,
-      imageFiles: [],
     },
   });
   const {
@@ -66,7 +65,13 @@ export const ManageHotelForm = () => {
         errors={errors}
       />
       <div className="flex justify-end">
-        <button className="bg-blue-600 text-white px-4 py-2 font-bold rounded hover:bg-blue-500 text-xl" type="submit">Save</button>
+        <button
+          disabled={createHotel.isLoading}
+          className="bg-blue-600 text-white px-4 py-2 font-bold rounded hover:bg-blue-500 text-xl disabled:bg-gray-500"
+          type="submit"
+        >
+            {createHotel.isLoading ? 'Saving...' : 'Save'}
+        </button>
       </div>
     </form>
   )

@@ -21,7 +21,7 @@ export const useCreateHotel = (form: UseFormReturn<FormData>) => {
       formData.append('pricePerNight', data.pricePerNight.toString());
       formData.append('starRating', data.starRating.toString());
 
-      data.facilities.forEach((facility, index) => {
+      data.facilities.forEach((facility, index: number) => {
         formData.append(`facilities[${index}]`, facility);
       });
 
@@ -30,10 +30,13 @@ export const useCreateHotel = (form: UseFormReturn<FormData>) => {
       });
 
       return await axios.post(
-        `${process.env.NEXT_PUBLIC_API_SERVER_URL}hotels`,
+        `${process.env.NEXT_PUBLIC_API_SERVER_URL}my-hotels/create`,
         data,
         {
           withCredentials: true,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
         },
       );
     },
